@@ -1,0 +1,13 @@
+# Archivos de datos generados por el programa (no subir reservas de prueba)
+datos/
+
+# Archivos de Python
+__pycache__/
+*.pyc
+
+# Configuración de VS Code
+.vscode/
+
+# Sistema operativo
+.DS_Store
+Thumbs.db
