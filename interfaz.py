@@ -1,7 +1,6 @@
 import tkinter as tk
 from tkinter import ttk, messagebox
-from utilidades import contar_reservas_por_fecha, contar_tickets_por_letra, formatear_dos_digitos, obtener_hora_por_turno, fecha_valida, guardar_reserva
-
+from utilidades import cargar_reservas, contar_reservas_por_fecha, contar_tickets_por_letra, formatear_dos_digitos, obtener_hora_por_turno, fecha_valida, guardar_reserva
 class AplicacionONPE:
     def __init__(self, root):
         self.root = root
@@ -247,18 +246,70 @@ class AplicacionONPE:
         self.ventana_ticket.destroy()
         self.root.deiconify() # Vuelve a mostrar la ventana principal
     def abrir_sgd(self):
-        # Función temporal para que el botón no dé error
         self.root.withdraw()
-        self.ventana_sgd_temp = tk.Toplevel()
-        self.ventana_sgd_temp.title("SGD (En construcción)")
-        self.ventana_sgd_temp.geometry("400x200")
         
-        tk.Label(self.ventana_sgd_temp, text="Aquí irá la tabla del SGD pronto").pack(pady=50)
-        tk.Button(self.ventana_sgd_temp, text="Volver al inicio", 
-                  command=self.volver_desde_sgd_temp).pack()
+        self.ventana_sgd = tk.Toplevel()
+        self.ventana_sgd.title("SGD - Recepción de Documentos")
+        self.ventana_sgd.geometry("850x400")
+        self.ventana_sgd.configure(bg="white")
 
-    def volver_desde_sgd_temp(self):
-        self.ventana_sgd_temp.destroy()
+        tk.Label(self.ventana_sgd, text="Registro de Reservas - Tickets", 
+                 font=("Arial", 14, "bold"), bg="white").pack(pady=10)
+
+        frame_tabla = tk.Frame(self.ventana_sgd)
+        frame_tabla.pack(fill="both", expand=True, padx=10, pady=5)
+
+        columnas = ("Codigo", "Nombre", "TipoDoc", "ODPE", "Tramite", "Fecha", "Hora")
+        self.tabla = ttk.Treeview(frame_tabla, columns=columnas, show="headings")
+
+        self.tabla.heading("Codigo", text="Código")
+        self.tabla.column("Codigo", width=70, anchor="center")
+        
+        self.tabla.heading("Nombre", text="Nombre / Entidad")
+        self.tabla.column("Nombre", width=180)
+        
+        self.tabla.heading("TipoDoc", text="Tipo Doc.")
+        self.tabla.column("TipoDoc", width=80, anchor="center")
+        
+        self.tabla.heading("ODPE", text="ODPE")
+        self.tabla.column("ODPE", width=130)
+        
+        self.tabla.heading("Tramite", text="Trámite")
+        self.tabla.column("Tramite", width=180)
+        
+        self.tabla.heading("Fecha", text="Fecha")
+        self.tabla.column("Fecha", width=80, anchor="center")
+        
+        self.tabla.heading("Hora", text="Hora")
+        self.tabla.column("Hora", width=60, anchor="center")
+
+        scroll = ttk.Scrollbar(frame_tabla, orient="vertical", command=self.tabla.yview)
+        self.tabla.configure(yscrollcommand=scroll.set)
+        self.tabla.pack(side="left", fill="both", expand=True)
+        scroll.pack(side="right", fill="y")
+
+        self.cargar_datos_tabla()
+
+        tk.Button(self.ventana_sgd, text="Volver al inicio", 
+                  command=self.volver_desde_sgd).pack(pady=10)
+
+    def cargar_datos_tabla(self):
+        for item in self.tabla.get_children():
+            self.tabla.delete(item)
+            
+        reservas = cargar_reservas()
+        if not reservas:
+            self.tabla.insert("", "end", values=("No hay reservas", "", "", "", "", "", ""))
+        else:
+            for r in reservas:
+                nombre_mostrar = r['nombre'] if r['tipo_doc'] == 'DNI' else f"{r['entidad']} - {r['nombre']}"
+                self.tabla.insert("", "end", values=(
+                    r['codigo'], nombre_mostrar, r['tipo_doc'], 
+                    r['odpe'], r['tramite'], r['fecha'], r['hora']
+                ))
+
+    def volver_desde_sgd(self):
+        self.ventana_sgd.destroy()
         self.root.deiconify()
 # --- PUNTO DE ENTRADA ---
 if __name__ == "__main__":
