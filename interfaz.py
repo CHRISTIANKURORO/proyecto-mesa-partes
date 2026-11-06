@@ -49,19 +49,24 @@ class AplicacionONPE:
         frame_ident = tk.Frame(self.ventana_form, bg="white")
         frame_ident.pack(fill="x", padx=15, pady=10)
 
-        # Fila 1: Tipo doc, Nombres, Entidad
+        # Fila 1: Tipo doc, Número de doc, Nombres, Entidad
+        tk.Label(frame_ident, text="Tipo Doc.", bg="white").grid(row=0, column=0, padx=5, sticky="w")
         self.combo_tipo = ttk.Combobox(frame_ident, values=["DNI", "RUC"], state="readonly", width=8)
         self.combo_tipo.set("DNI")
-        self.combo_tipo.grid(row=0, column=0, padx=5, pady=5)
+        self.combo_tipo.grid(row=1, column=0, padx=5, pady=2)
         self.combo_tipo.bind("<<ComboboxSelected>>", self.cambiar_tipo_doc)
 
-        tk.Label(frame_ident, text="Nombres y apellidos:", bg="white").grid(row=1, column=1, sticky="w", padx=5)
-        self.entry_nombre = tk.Entry(frame_ident, width=30, relief="solid", bd=1)
-        self.entry_nombre.grid(row=2, column=1, padx=5, pady=2)
+        tk.Label(frame_ident, text="Número de Doc:", bg="white").grid(row=0, column=1, padx=5, sticky="w")
+        self.entry_dni = tk.Entry(frame_ident, width=15, relief="solid", bd=1)
+        self.entry_dni.grid(row=1, column=1, padx=5, pady=2)
 
-        tk.Label(frame_ident, text="Entidad si escoge RUC:", bg="white").grid(row=1, column=2, sticky="w", padx=5)
-        self.entry_entidad = tk.Entry(frame_ident, width=30, relief="solid", bd=1, state="disabled")
-        self.entry_entidad.grid(row=2, column=2, padx=5, pady=2)
+        tk.Label(frame_ident, text="Nombres y apellidos:", bg="white").grid(row=0, column=2, padx=5, sticky="w")
+        self.entry_nombre = tk.Entry(frame_ident, width=25, relief="solid", bd=1)
+        self.entry_nombre.grid(row=1, column=2, padx=5, pady=2)
+
+        tk.Label(frame_ident, text="Entidad si escoge RUC:", bg="white").grid(row=0, column=3, padx=5, sticky="w")
+        self.entry_entidad = tk.Entry(frame_ident, width=25, relief="solid", bd=1, state="disabled")
+        self.entry_entidad.grid(row=1, column=3, padx=5, pady=2)
 
         # --- SECCIÓN 2: ODPE ---
         frame_odpe = tk.Frame(self.ventana_form, bg="white")
@@ -163,7 +168,7 @@ class AplicacionONPE:
         # 1. Recolectar datos de la interfaz
         tipo_doc = self.combo_tipo.get()
         nombre = self.entry_nombre.get().strip()
-        num_doc = "00000000" # Simulado por ahora
+        num_doc = self.entry_dni.get().strip()
         entidad = self.entry_entidad.get().strip()
         odpe = self.combo_odpe.get()
         direccion = self.entry_direccion.get()
@@ -171,7 +176,7 @@ class AplicacionONPE:
         fecha = self.entry_fecha.get().strip()
 
         # 2. Validaciones básicas
-        if not nombre or not odpe or not tramite or not fecha:
+        if not nombre or not odpe or not tramite or not fecha or not num_doc:
             messagebox.showerror("Error", "Por favor, complete todos los campos obligatorios.")
             return
 
