@@ -67,19 +67,30 @@ class VentanaFormulario:
         self.entry_info = tk.Entry(frame_tram, width=45, relief="solid", bd=1, state="readonly")
         self.entry_info.grid(row=1, column=1, padx=5, pady=2)
 
-        # --- SECCIÓN 4: FECHA Y HORA ---
+                # --- SECCIÓN 4: FECHA Y HORA (MEJORADA) ---
         frame_fecha = tk.Frame(self.ventana, bg="white")
         frame_fecha.pack(fill="x", padx=15, pady=10)
 
+        # Columna 0: Fecha
         tk.Label(frame_fecha, text="Fecha (dd/mm/aaaa)", bg="white").grid(row=0, column=0, sticky="w", padx=5)
         self.entry_fecha = tk.Entry(frame_fecha, width=15, relief="solid", bd=1)
         self.entry_fecha.grid(row=1, column=0, padx=5, pady=2)
 
-        tk.Label(frame_fecha, text="Horario: 8am - 1pm y 2pm - 5pm", 
-                 bg="white", font=("Arial", 8)).grid(row=1, column=1, padx=10)
-        
-        self.entry_hora = tk.Entry(frame_fecha, width=15, relief="solid", bd=1, state="readonly")
-        self.entry_hora.grid(row=1, column=2, padx=5)
+        # Columna 1: Horarios de atención (3 Labels bonitos)
+        tk.Label(frame_fecha, text="HORARIOS DE ATENCIÓN:", bg="white", 
+                 font=("Arial", 9, "bold")).grid(row=0, column=1, padx=10)
+        tk.Label(frame_fecha, text="8 AM - 1 PM\n2 PM - 5 PM", 
+                 bg="white", font=("Arial", 9)).grid(row=1, column=1, padx=10)
+        tk.Label(frame_fecha, text="Si están reservados, elija otro.", 
+                 bg="white", font=("Arial", 8)).grid(row=2, column=1, padx=10)
+
+        # Columna 2: Combobox para seleccionar hora
+        tk.Label(frame_fecha, text="HORARIO:", bg="white").grid(row=0, column=2, sticky="w", padx=5)
+        self.combo_hora = ttk.Combobox(frame_fecha, values=[
+            "8 AM", "9 AM", "10 AM", "11 AM", "12 PM", 
+            "2 PM", "3 PM", "4 PM"
+        ], state="readonly", width=13)
+        self.combo_hora.grid(row=1, column=2, padx=5, pady=2)
 
         # --- BOTONES ---
         frame_botones = tk.Frame(self.ventana, bg="white")

@@ -25,8 +25,7 @@ class AplicacionONPE:
         tk.Label(self.frame_menu, text="Home", bg="white").pack(side="left", padx=10, pady=5)
         
         # Botón SGD (Navegación a Ventana 3)
-        self.btn_sgd = tk.Button(self.frame_menu, text="SGD", bg="white", relief="flat", 
-                                 command=self.abrir_sgd)
+        self.btn_sgd = tk.Button(self.frame_menu, text="SGD", bg="#e0e0e0", relief="solid", bd=1, command=self.abrir_sgd)
         self.btn_sgd.pack(side="left", padx=10)
 
         tk.Label(self.frame_menu, text="Consultorías", bg="white").pack(side="left", padx=10, pady=5)
