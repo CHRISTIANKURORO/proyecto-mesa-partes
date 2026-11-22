@@ -20,9 +20,9 @@ def procesar_ticket(datos):
     
     # 4. Validar HORARIO seleccionado
     hora_seleccionada = datos.get("hora")
-    if not hora_seleccionada:
+    if not hora_seleccionada or str(hora_seleccionada).strip() == "":
         return {"exito": False, "mensaje": "Seleccione un horario de atención."}
-    
+    hora_seleccionada = str(hora_seleccionada).strip()
     # 5. Convertir a formato 24h
     horarios_24h = {
         "8 AM": "08:00", "9 AM": "09:00", "10 AM": "10:00",
