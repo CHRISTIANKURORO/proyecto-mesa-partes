@@ -91,6 +91,7 @@ class VentanaFormulario:
             "2 PM", "3 PM", "4 PM"
         ], state="readonly", width=13)
         self.combo_hora.grid(row=1, column=2, padx=5, pady=2)
+        self.combo_hora.set("8 AM")  # <--- ESTO ES LO QUE FALTA
 
         # --- BOTONES ---
         frame_botones = tk.Frame(self.ventana, bg="white")
@@ -147,10 +148,11 @@ class VentanaFormulario:
             "odpe": self.combo_odpe.get(),
             "direccion": self.entry_direccion.get(),
             "tramite": self.combo_tramite.get(),
-            "fecha": self.entry_fecha.get().strip()
+            "fecha": self.entry_fecha.get().strip(),
+            "hora": self.combo_hora.get()  # <-- AÑADIDO: "8 AM", "9 AM", etc.
         }
         
-        # Llamar al gestor (él valida y guarda)
+        # Llamar al gestor
         resultado = procesar_ticket(datos)
         
         if resultado["exito"]:
@@ -159,7 +161,3 @@ class VentanaFormulario:
             VentanaTicket(self.root, self.ventana_principal, resultado["ticket"])
         else:
             messagebox.showerror("Error", resultado["mensaje"])
-
-    def volver(self):
-        self.ventana.destroy()
-        self.root.deiconify()
