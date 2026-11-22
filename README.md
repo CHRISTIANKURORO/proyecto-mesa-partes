@@ -38,3 +38,29 @@ Un sistema de tickets virtuales con atención programada, donde el ciudadano res
 ---
 
 ## 🗂️ Estructura del proyecto
+proyecto_mesa_partes/
+│
+├── main.py ← Arranque de la versión consola
+├── interfaz.py ← Arranque de la versión gráfica (Ventana 1)
+├── gestor.py ← Cerebro: valida, procesa y guarda tickets
+│
+├── modelo/
+│ ├── init.py
+│ └── utilidades.py ← Lógica pura: archivos, cálculos, fechas
+│
+├── consola/
+│ ├── init.py
+│ ├── portal_ciudadano.py ← Flujo del ciudadano en consola
+│ └── sgd_personal.py ← Flujo del personal en consola
+│
+├── eventos/ ← Carpeta de ventanas gráficas
+│ ├── init.py
+│ ├── ventana_formulario.py
+│ ├── ventana_ticket.py
+│ └── ventana_sgd.py
+│
+├── datos/
+│ └── reservas.txt ← Generado automáticamente
+│
+├── evidencias/ ← Capturas de pantalla
+└── README.md
