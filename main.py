@@ -1,7 +1,6 @@
-# main.py
-from portal_ciudadano import ejecutar_portal
-from sgd_personal import ejecutar_sgd
-from utilidades import asegurar_archivo
+from consola.portal_ciudadano import ejecutar_portal
+from consola.sgd_personal import ejecutar_sgd
+from modelo.utilidades import asegurar_archivo
 
 def main():
     asegurar_archivo()

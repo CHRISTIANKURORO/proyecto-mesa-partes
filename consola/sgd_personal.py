@@ -1,5 +1,4 @@
-# sgd_personal.py
-from utilidades import cargar_reservas
+from modelo.utilidades import cargar_reservas
 
 def consultar_reservas_sgd():
     print("\n==============================================")
