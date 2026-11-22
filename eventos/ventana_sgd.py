@@ -20,7 +20,7 @@ class VentanaSGD:
         frame_tabla = tk.Frame(self.ventana)
         frame_tabla.pack(fill="both", expand=True, padx=10, pady=5)
 
-        columnas = ("Codigo", "Nombre", "TipoDoc", "ODPE", "Tramite", "Fecha", "Hora")
+        columnas = ("Codigo", "Nombre", "TipoDoc", "NumDoc", "ODPE", "Tramite", "Fecha", "Hora")
         self.tabla = ttk.Treeview(frame_tabla, columns=columnas, show="headings")
 
         # Configurar columnas
@@ -32,6 +32,9 @@ class VentanaSGD:
         
         self.tabla.heading("TipoDoc", text="Tipo Doc.")
         self.tabla.column("TipoDoc", width=80, anchor="center")
+
+        self.tabla.heading("NumDoc", text="Nro. Doc.")
+        self.tabla.column("NumDoc", width=110, anchor="center")
         
         self.tabla.heading("ODPE", text="ODPE")
         self.tabla.column("ODPE", width=130)
@@ -69,7 +72,7 @@ class VentanaSGD:
             for r in reservas:
                 nombre_mostrar = r['nombre'] if r['tipo_doc'] == 'DNI' else f"{r['entidad']} - {r['nombre']}"
                 self.tabla.insert("", "end", values=(
-                    r['codigo'], nombre_mostrar, r['tipo_doc'], 
+                    r['codigo'], nombre_mostrar, r['tipo_doc'], r['num_doc'],
                     r['odpe'], r['tramite'], r['fecha'], r['hora']
                 ))
 
