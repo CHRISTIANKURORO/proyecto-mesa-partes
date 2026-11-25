@@ -1,5 +1,5 @@
 from modelo.utilidades import (
-    fecha_valida, contar_reservas_por_fecha, contar_tickets_por_letra,
+    fecha_valida, contar_tickets_por_letra,
     formatear_dos_digitos, guardar_reserva, cargar_reservas
 )
 
