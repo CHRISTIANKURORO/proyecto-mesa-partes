@@ -4,7 +4,6 @@ class VentanaTicket:
     def __init__(self, root, ventana_principal, reserva):
         self.root = root
         self.ventana_principal = ventana_principal
-        
         self.ventana = tk.Toplevel()
         self.ventana.title("Ticket Generado")
         self.ventana.geometry("450x350")
